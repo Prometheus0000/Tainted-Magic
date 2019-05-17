@@ -9,14 +9,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBlockShadowOre extends ItemBlock
 {
-	public ItemBlockShadowOre (Block b)
-	{
-		super(b);
-	}
+    public ItemBlockShadowOre(Block b)
+    {
+        super(b);
+    }
 
-	@SideOnly (Side.CLIENT)
-	public EnumRarity getRarity (ItemStack s)
-	{
-		return EnumRarity.uncommon;
-	}
+    @SideOnly(Side.CLIENT)
+    public EnumRarity getRarity(ItemStack s)
+    {
+        return EnumRarity.uncommon;
+    }
 }

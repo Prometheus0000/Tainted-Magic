@@ -18,19 +18,19 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemVoidsentBlood extends Item
 {
-	public ItemVoidsentBlood ()
-	{
-		this.setCreativeTab(TaintedMagic.tabTaintedMagic);
-		this.setTextureName("taintedmagic:ItemVoidsentBlood");
-		this.setUnlocalizedName("ItemVoidsentBlood");
+    public ItemVoidsentBlood()
+    {
+        this.setCreativeTab(TaintedMagic.tabTaintedMagic);
+        this.setTextureName("taintedmagic:ItemVoidsentBlood");
+        this.setUnlocalizedName("ItemVoidsentBlood");
 
-		GameRegistry.addRecipe(new RecipeVoidsentBlood());
-		RecipeSorter.register("taintedmagic:ItemVoidsentBlood", RecipeVoidsentBlood.class, Category.SHAPELESS, "");
-	}
+        GameRegistry.addRecipe(new RecipeVoidsentBlood());
+        RecipeSorter.register("taintedmagic:ItemVoidsentBlood", RecipeVoidsentBlood.class, Category.SHAPELESS, "");
+    }
 
-	@SideOnly (Side.CLIENT)
-	public EnumRarity getRarity (ItemStack s)
-	{
-		return EnumRarity.uncommon;
-	}
+    @SideOnly(Side.CLIENT)
+    public EnumRarity getRarity(ItemStack s)
+    {
+        return EnumRarity.uncommon;
+    }
 }

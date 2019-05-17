@@ -9,14 +9,14 @@ import net.minecraft.item.ItemStack;
 
 public class ItemBlockWarpwoodSapling extends ItemBlock
 {
-	public ItemBlockWarpwoodSapling (Block b)
-	{
-		super(b);
-	}
+    public ItemBlockWarpwoodSapling(Block b)
+    {
+        super(b);
+    }
 
-	@SideOnly (Side.CLIENT)
-	public EnumRarity getRarity (ItemStack s)
-	{
-		return EnumRarity.uncommon;
-	}
+    @SideOnly(Side.CLIENT)
+    public EnumRarity getRarity(ItemStack s)
+    {
+        return EnumRarity.uncommon;
+    }
 }

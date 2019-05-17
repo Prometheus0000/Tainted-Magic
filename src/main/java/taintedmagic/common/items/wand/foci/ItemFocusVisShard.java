@@ -29,92 +29,96 @@ import thaumcraft.common.lib.utils.EntityUtils;
  */
 public class ItemFocusVisShard extends ItemFocusBasic
 {
-	private static final AspectList cost = new AspectList().add(Aspect.FIRE, 100).add(Aspect.ENTROPY, 100).add(Aspect.AIR, 100);
-	private static final AspectList costPersistent = new AspectList().add(Aspect.FIRE, 100).add(Aspect.ENTROPY, 100).add(Aspect.WATER, 100).add(Aspect.AIR, 100);
+    private static final AspectList cost =
+            new AspectList().add(Aspect.FIRE, 100).add(Aspect.ENTROPY, 100).add(Aspect.AIR, 100);
+    private static final AspectList costPersistent =
+            new AspectList().add(Aspect.FIRE, 100).add(Aspect.ENTROPY, 100).add(Aspect.WATER, 100).add(Aspect.AIR, 100);
 
-	public ItemFocusVisShard ()
-	{
-		this.setCreativeTab(TaintedMagic.tabTaintedMagic);
-		this.setUnlocalizedName("ItemFocusVisShard");
-	}
+    public ItemFocusVisShard()
+    {
+        this.setCreativeTab(TaintedMagic.tabTaintedMagic);
+        this.setUnlocalizedName("ItemFocusVisShard");
+    }
 
-	@SideOnly (Side.CLIENT)
-	public void registerIcons (IIconRegister ir)
-	{
-		this.icon = ir.registerIcon("taintedmagic:ItemFocusVisShard");
-	}
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister ir)
+    {
+        this.icon = ir.registerIcon("taintedmagic:ItemFocusVisShard");
+    }
 
-	public String getSortingHelper (ItemStack s)
-	{
-		return "SHARD" + super.getSortingHelper(s);
-	}
+    public String getSortingHelper(ItemStack s)
+    {
+        return "SHARD" + super.getSortingHelper(s);
+    }
 
-	public int getFocusColor (ItemStack s)
-	{
-		return 10037693;
-	}
+    public int getFocusColor(ItemStack s)
+    {
+        return 10037693;
+    }
 
-	public int getActivationCooldown (ItemStack s)
-	{
-		return 300;
-	}
+    public int getActivationCooldown(ItemStack s)
+    {
+        return 300;
+    }
 
-	public ItemFocusBasic.WandFocusAnimation getAnimation (ItemStack s)
-	{
-		return ItemFocusBasic.WandFocusAnimation.WAVE;
-	}
+    public ItemFocusBasic.WandFocusAnimation getAnimation(ItemStack s)
+    {
+        return ItemFocusBasic.WandFocusAnimation.WAVE;
+    }
 
-	public ItemStack onFocusRightClick (ItemStack s, World w, EntityPlayer p, MovingObjectPosition mop)
-	{
-		ItemWandCasting wand = (ItemWandCasting) s.getItem();
+    public ItemStack onFocusRightClick(ItemStack s, World w, EntityPlayer p, MovingObjectPosition mop)
+    {
+        ItemWandCasting wand = (ItemWandCasting) s.getItem();
 
-		Entity look = EntityUtils.getPointedEntity(p.worldObj, p, 0.0D, 32.0D, 1.1F);
-		if (look != null && look instanceof EntityLivingBase)
-		{
-			if (wand.consumeAllVis(s, p, getVisCost(s), true, false))
-			{
-				EntityHomingShard shard = new EntityHomingShard(w, p, (EntityLivingBase) look, wand.getFocusPotency(s), isUpgradedWith(wand.getFocusItem(s), FocusUpgrades.persistent));
-				if (!w.isRemote) w.spawnEntityInWorld(shard);
-				w.playSoundAtEntity(shard, "taintedmagic:shard", 0.3F, 1.1F + w.rand.nextFloat() * 0.1F);
+        Entity look = EntityUtils.getPointedEntity(p.worldObj, p, 0.0D, 32.0D, 1.1F);
+        if (look != null && look instanceof EntityLivingBase)
+        {
+            if (wand.consumeAllVis(s, p, getVisCost(s), true, false))
+            {
+                EntityHomingShard shard = new EntityHomingShard(w, p, (EntityLivingBase) look,
+                        wand.getFocusPotency(s), isUpgradedWith(wand.getFocusItem(s), FocusUpgrades.persistent));
+                if (!w.isRemote) w.spawnEntityInWorld(shard);
+                w.playSoundAtEntity(shard, "taintedmagic:shard", 0.3F, 1.1F + w.rand.nextFloat() * 0.1F);
 
-				for (int a = 0; a < 18; a++)
-				{
-					if (w.isRemote) spawnParticles(w, shard.posX, shard.posY, shard.posZ);
-				}
-			}
-			p.swingItem();
-		}
-		return s;
-	}
+                for (int a = 0; a < 18; a++)
+                {
+                    if (w.isRemote) spawnParticles(w, shard.posX, shard.posY, shard.posZ);
+                }
+            }
+            p.swingItem();
+        }
+        return s;
+    }
 
-	@SideOnly (Side.CLIENT)
-	void spawnParticles (World w, double x, double y, double z)
-	{
-		FXSparkle fx = new FXSparkle(w, x + w.rand.nextFloat(), y + w.rand.nextFloat(), z + w.rand.nextFloat(), 1.75F, 0, 3 + w.rand.nextInt(3));
-		fx.setGravity(0.1F);
-		ParticleEngine.instance.addEffect(w, fx);
-	}
+    @SideOnly(Side.CLIENT)
+    void spawnParticles(World w, double x, double y, double z)
+    {
+        FXSparkle fx = new FXSparkle(w, x + w.rand.nextFloat(), y + w.rand.nextFloat(), z + w.rand.nextFloat(), 1.75F
+                , 0, 3 + w.rand.nextInt(3));
+        fx.setGravity(0.1F);
+        ParticleEngine.instance.addEffect(w, fx);
+    }
 
-	public AspectList getVisCost (ItemStack s)
-	{
-		return isUpgradedWith(s, FocusUpgrades.persistent) ? costPersistent : cost;
-	}
+    public AspectList getVisCost(ItemStack s)
+    {
+        return isUpgradedWith(s, FocusUpgrades.persistent) ? costPersistent : cost;
+    }
 
-	public FocusUpgradeType[] getPossibleUpgradesByRank (ItemStack s, int r)
-	{
-		switch (r)
-		{
-		case 1 :
-			return new FocusUpgradeType[]{ FocusUpgradeType.frugal, FocusUpgradeType.potency };
-		case 2 :
-			return new FocusUpgradeType[]{ FocusUpgradeType.frugal, FocusUpgradeType.potency };
-		case 3 :
-			return new FocusUpgradeType[]{ FocusUpgradeType.frugal, FocusUpgradeType.potency };
-		case 4 :
-			return new FocusUpgradeType[]{ FocusUpgradeType.frugal, FocusUpgradeType.potency };
-		case 5 :
-			return new FocusUpgradeType[]{ FocusUpgradeType.frugal, FocusUpgradeType.potency, FocusUpgrades.persistent };
-		}
-		return null;
-	}
+    public FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack s, int r)
+    {
+        switch (r)
+        {
+            case 1:
+                return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency};
+            case 2:
+                return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency};
+            case 3:
+                return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency};
+            case 4:
+                return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency};
+            case 5:
+                return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency, FocusUpgrades.persistent};
+        }
+        return null;
+    }
 }

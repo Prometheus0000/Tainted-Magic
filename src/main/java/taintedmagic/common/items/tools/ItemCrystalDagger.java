@@ -10,18 +10,18 @@ import thaumcraft.api.IRepairable;
 
 public class ItemCrystalDagger extends ItemSword implements IBloodlust, IRepairable
 {
-	public ItemCrystalDagger (ToolMaterial m)
-	{
-		super(m);
-		this.setCreativeTab(TaintedMagic.tabTaintedMagic);
-		this.setUnlocalizedName("ItemCrystalDagger");
-		this.setMaxStackSize(1);
-		this.setTextureName("taintedmagic:ItemCrystalDagger");
-	}
+    public ItemCrystalDagger(ToolMaterial m)
+    {
+        super(m);
+        this.setCreativeTab(TaintedMagic.tabTaintedMagic);
+        this.setUnlocalizedName("ItemCrystalDagger");
+        this.setMaxStackSize(1);
+        this.setTextureName("taintedmagic:ItemCrystalDagger");
+    }
 
-	@Override
-	public EnumRarity getRarity (ItemStack s)
-	{
-		return EnumRarity.uncommon;
-	}
+    @Override
+    public EnumRarity getRarity(ItemStack s)
+    {
+        return EnumRarity.uncommon;
+    }
 }

@@ -9,21 +9,21 @@ import taintedmagic.client.handler.ClientHandler;
 
 public class CommonProxy
 {
-	public void registerClientHandlers ()
-	{
-	}
-	
-	public void registerRenderers ()
-	{
-	}
+    public void registerClientHandlers()
+    {
+    }
 
-	public EntityPlayer getClientPlayer ()
-	{
-		return null;
-	}
+    public void registerRenderers()
+    {
+    }
 
-	public World getClientWorld ()
-	{
-		return null;
-	}
+    public EntityPlayer getClientPlayer()
+    {
+        return null;
+    }
+
+    public World getClientWorld()
+    {
+        return null;
+    }
 }

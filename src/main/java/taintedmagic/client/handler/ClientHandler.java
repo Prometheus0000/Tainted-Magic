@@ -19,26 +19,26 @@ import taintedmagic.common.items.tools.ItemKatana;
 
 public class ClientHandler
 {
-	/*
-	 * Render items implementing IRenderInventoryItem
-	 */
-	@SubscribeEvent
-	public void onPlayerRender (RenderPlayerEvent.Specials.Post event)
-	{
-		EntityPlayer p = event.entityPlayer;
-		if (p.getActivePotionEffect(Potion.invisibility) != null) return;
+    /*
+     * Render items implementing IRenderInventoryItem
+     */
+    @SubscribeEvent
+    public void onPlayerRender(RenderPlayerEvent.Specials.Post event)
+    {
+        EntityPlayer p = event.entityPlayer;
+        if (p.getActivePotionEffect(Potion.invisibility) != null) return;
 
-		ItemStack[] inv = p.inventory.mainInventory;
-		List<Item> rendering = new ArrayList<Item>();
-		for (int i = 0; i < 36; i++)
-		{
-			ItemStack s = inv[i];
-			if (s != null && s.getItem() instanceof IRenderInventoryItem && !rendering.contains(s.getItem()))
-			{
-				((IRenderInventoryItem) s.getItem()).render(p, s, event.partialRenderTick);
-				rendering.add(s.getItem());
-			}
-			if (i == 36) rendering.clear();
-		}
-	}
+        ItemStack[] inv = p.inventory.mainInventory;
+        List<Item> rendering = new ArrayList<Item>();
+        for (int i = 0; i < 36; i++)
+        {
+            ItemStack s = inv[i];
+            if (s != null && s.getItem() instanceof IRenderInventoryItem && !rendering.contains(s.getItem()))
+            {
+                ((IRenderInventoryItem) s.getItem()).render(p, s, event.partialRenderTick);
+                rendering.add(s.getItem());
+            }
+            if (i == 36) rendering.clear();
+        }
+    }
 }

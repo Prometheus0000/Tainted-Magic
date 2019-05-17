@@ -18,59 +18,61 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileLumos extends TileEntity
 {
-	int ticksExisted;
+    int ticksExisted;
 
-	public TileLumos ()
-	{
-	}
+    public TileLumos()
+    {
+    }
 
-	public boolean canUpdate ()
-	{
-		return true;
-	}
+    public boolean canUpdate()
+    {
+        return true;
+    }
 
-	@Override
-	public void updateEntity ()
-	{
-		ticksExisted++;
+    @Override
+    public void updateEntity()
+    {
+        ticksExisted++;
 
-		Block b = worldObj.getBlock(xCoord, yCoord, zCoord);
-		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+        Block b = worldObj.getBlock(xCoord, yCoord, zCoord);
+        int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
-		List<EntityGlowpet> ents = worldObj.getEntitiesWithinAABB(EntityGlowpet.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1).expand(2.0D, 2.0D, 2.0D));
-		if (b instanceof BlockLumos)
-		{
-			BlockLumos src = (BlockLumos) b;
-			if (meta == 0 && ents.isEmpty())
-			{
-				worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-			}
+        List<EntityGlowpet> ents = worldObj.getEntitiesWithinAABB(EntityGlowpet.class,
+                AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1).expand(2.0D,
+                        2.0D, 2.0D));
+        if (b instanceof BlockLumos)
+        {
+            BlockLumos src = (BlockLumos) b;
+            if (meta == 0 && ents.isEmpty())
+            {
+                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            }
 
-			else if (meta == 1 && ticksExisted > src.getGlowDuration())
-			{
-				worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-			}
+            else if (meta == 1 && ticksExisted > src.getGlowDuration())
+            {
+                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            }
 
-			if ( (meta == 1 && worldObj.rand.nextInt(50) == 0) || (meta == 2 && worldObj.rand.nextInt(9) == 0))
-			{
-				Thaumcraft.proxy.sparkle((float) xCoord + 0.5F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.25F, (float) yCoord + 0.5F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.25F, (float) zCoord + 0.5F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.25F, 0.5F, 6, -0.05F);
-			}
+            if ((meta == 1 && worldObj.rand.nextInt(50) == 0) || (meta == 2 && worldObj.rand.nextInt(9) == 0))
+            {
+                Thaumcraft.proxy.sparkle((float) xCoord + 0.5F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.25F, (float) yCoord + 0.5F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.25F, (float) zCoord + 0.5F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.25F, 0.5F, 6, -0.05F);
+            }
 
-			if ( (meta == 1 || meta == 2) && worldObj.rand.nextInt(512) == 0)
-			{
-				for (int a = 0; a < 9; a++)
-				{
-					if (worldObj.isRemote) spawnParticles();
-				}
-			}
-		}
-	}
+            if ((meta == 1 || meta == 2) && worldObj.rand.nextInt(512) == 0)
+            {
+                for (int a = 0; a < 9; a++)
+                {
+                    if (worldObj.isRemote) spawnParticles();
+                }
+            }
+        }
+    }
 
-	@SideOnly (Side.CLIENT)
-	void spawnParticles ()
-	{
-		FXSparkle fx = new FXSparkle(worldObj, xCoord + worldObj.rand.nextFloat(), yCoord + worldObj.rand.nextFloat(), zCoord + worldObj.rand.nextFloat(), 1.75F, worldObj.rand.nextInt(5), 3 + worldObj.rand.nextInt(3));
-		fx.setGravity(0.1F);
-		ParticleEngine.instance.addEffect(worldObj, fx);
-	}
+    @SideOnly(Side.CLIENT)
+    void spawnParticles()
+    {
+        FXSparkle fx = new FXSparkle(worldObj, xCoord + worldObj.rand.nextFloat(), yCoord + worldObj.rand.nextFloat(), zCoord + worldObj.rand.nextFloat(), 1.75F, worldObj.rand.nextInt(5), 3 + worldObj.rand.nextInt(3));
+        fx.setGravity(0.1F);
+        ParticleEngine.instance.addEffect(worldObj, fx);
+    }
 }

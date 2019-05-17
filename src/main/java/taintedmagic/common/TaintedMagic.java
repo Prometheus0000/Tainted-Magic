@@ -31,71 +31,71 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod (modid = LibInfo.MODID, name = LibInfo.NAME, version = LibInfo.VERSION, dependencies = LibInfo.DEPENDENCIES)
+@Mod(modid = LibInfo.MODID, name = LibInfo.NAME, version = LibInfo.VERSION, dependencies = LibInfo.DEPENDENCIES)
 public class TaintedMagic
 {
-	@Mod.Instance ("TaintedMagic")
-	public static TaintedMagic instance;
+    @Mod.Instance("TaintedMagic")
+    public static TaintedMagic instance;
 
-	// Proxies
-	@SidedProxy (clientSide = "taintedmagic.client.ClientProxy", serverSide = "taintedmagic.common.CommonProxy")
-	public static CommonProxy proxy;
+    // Proxies
+    @SidedProxy(clientSide = "taintedmagic.client.ClientProxy", serverSide = "taintedmagic.common.CommonProxy")
+    public static CommonProxy proxy;
 
-	public static TMEventHandler taintedMagicEvents;
-	public static CreativeTabs tabTaintedMagic = new TaintedMagicCreativeTab();
-	public static ConfigHandler configHandler;
+    public static TMEventHandler taintedMagicEvents;
+    public static CreativeTabs tabTaintedMagic = new TaintedMagicCreativeTab();
+    public static ConfigHandler configHandler;
 
-	public static final Logger log = LogManager.getLogger("TAINTEDMAGIC");
+    public static final Logger log = LogManager.getLogger("TAINTEDMAGIC");
 
-	public static EnumRarity rarityCreation = EnumHelper.addRarity("CREATION", EnumChatFormatting.GOLD, "Creation");
+    public static EnumRarity rarityCreation = EnumHelper.addRarity("CREATION", EnumChatFormatting.GOLD, "Creation");
 
-	// Pre init
-	@EventHandler
-	public static void preInit (FMLPreInitializationEvent event)
-	{
-		log.info("Please stand back... Pre-initializing Tainted Magic!");
+    // Pre init
+    @EventHandler
+    public static void preInit(FMLPreInitializationEvent event)
+    {
+        log.info("Please stand back... Pre-initializing Tainted Magic!");
 
-		// Config
-		configHandler.config = new Configuration(event.getSuggestedConfigurationFile());
-		configHandler.init();
+        // Config
+        configHandler.config = new Configuration(event.getSuggestedConfigurationFile());
+        configHandler.init();
 
-		proxy.registerClientHandlers();
+        proxy.registerClientHandlers();
 
-		PacketHandler.init();
-		ItemRegistry.init();
-		BlockRegistry.init();
-		BlockRegistry.initTiles();
-		ModEntityRegistry.init();
-		RecipeRegistry.init();
+        PacketHandler.init();
+        ItemRegistry.init();
+        BlockRegistry.init();
+        BlockRegistry.initTiles();
+        ModEntityRegistry.init();
+        RecipeRegistry.init();
 
-		OreDictionaryRegistry.init();
+        OreDictionaryRegistry.init();
 
-		if (configHandler.useUpdateHandler) UpdateHandler.init();
-	}
+        if (configHandler.useUpdateHandler) UpdateHandler.init();
+    }
 
-	// Init
-	@EventHandler
-	public static void init (FMLInitializationEvent event)
-	{
-		log.info("Things seem to be going smoothly... Initializing Tainted Magic!");
+    // Init
+    @EventHandler
+    public static void init(FMLInitializationEvent event)
+    {
+        log.info("Things seem to be going smoothly... Initializing Tainted Magic!");
 
-		taintedMagicEvents = new TMEventHandler();
+        taintedMagicEvents = new TMEventHandler();
 
-		MinecraftForge.EVENT_BUS.register(taintedMagicEvents);
-		FMLCommonHandler.instance().bus().register(taintedMagicEvents);
+        MinecraftForge.EVENT_BUS.register(taintedMagicEvents);
+        FMLCommonHandler.instance().bus().register(taintedMagicEvents);
 
-		proxy.registerRenderers();
-		FocusUpgrades.init();
-	}
+        proxy.registerRenderers();
+        FocusUpgrades.init();
+    }
 
-	// Post init
-	@EventHandler
-	public static void postInit (FMLPostInitializationEvent event)
-	{
-		log.info("Almost done... Post-initializing Tainted Magic!");
+    // Post init
+    @EventHandler
+    public static void postInit(FMLPostInitializationEvent event)
+    {
+        log.info("Almost done... Post-initializing Tainted Magic!");
 
-		ResearchRegistry.initResearch();
+        ResearchRegistry.initResearch();
 
-		log.info("Phew! Tainted Magic has finished loading, enjoy!");
-	}
+        log.info("Phew! Tainted Magic has finished loading, enjoy!");
+    }
 }

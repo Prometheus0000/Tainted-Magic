@@ -16,57 +16,60 @@ import thaumcraft.common.items.armor.ItemCultistRobeArmor;
  */
 public class RecipeVoidsentBlood implements IRecipe
 {
-	@Override
-	public boolean matches (InventoryCrafting inv, World w)
-	{
-		boolean foundBlood = false;
-		boolean foundArmor = false;
+    @Override
+    public boolean matches(InventoryCrafting inv, World w)
+    {
+        boolean foundBlood = false;
+        boolean foundArmor = false;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++)
-		{
-			ItemStack s = inv.getStackInSlot(i);
+        for (int i = 0; i < inv.getSizeInventory(); i++)
+        {
+            ItemStack s = inv.getStackInSlot(i);
 
-			if (s != null)
-			{
-				if (s.getItem() instanceof ItemVoidsentBlood && !foundBlood) foundBlood = true;
-				else if ( (s.getItem() instanceof ItemCultistRobeArmor || s.getItem() instanceof ItemCultistPlateArmor || s.getItem() instanceof ItemCultistLeaderArmor) && !foundArmor) foundArmor = true;
+            if (s != null)
+            {
+                if (s.getItem() instanceof ItemVoidsentBlood && !foundBlood) foundBlood = true;
+                else if ((s.getItem() instanceof ItemCultistRobeArmor || s.getItem() instanceof ItemCultistPlateArmor || s.getItem() instanceof ItemCultistLeaderArmor) && !foundArmor)
+                    foundArmor = true;
 
-				else return false;
-			}
-		}
-		return foundBlood && foundArmor;
-	}
+                else return false;
+            }
+        }
+        return foundBlood && foundArmor;
+    }
 
-	@Override
-	public ItemStack getCraftingResult (InventoryCrafting inv)
-	{
-		ItemStack copy = null;
-		ItemStack armor = null;
-		ItemStack blood = null;
+    @Override
+    public ItemStack getCraftingResult(InventoryCrafting inv)
+    {
+        ItemStack copy = null;
+        ItemStack armor = null;
+        ItemStack blood = null;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++)
-		{
-			if (inv.getStackInSlot(i) != null && (inv.getStackInSlot(i).getItem() instanceof ItemCultistRobeArmor || inv.getStackInSlot(i).getItem() instanceof ItemCultistPlateArmor || inv.getStackInSlot(i).getItem() instanceof ItemCultistLeaderArmor)) armor = inv.getStackInSlot(i);
-			else if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getItem() instanceof ItemVoidsentBlood) blood = inv.getStackInSlot(i);
-		}
-		if (armor != null && blood != null && (armor.getTagCompound() == null || (armor.getTagCompound() != null && !armor.getTagCompound().getBoolean("voidtouched"))))
-		{
-			copy = armor.copy();
-			if (copy.getTagCompound() == null) copy.setTagCompound(new NBTTagCompound());
-			if (copy.getTagCompound() != null) copy.getTagCompound().setBoolean("voidtouched", true);
-		}
-		return copy;
-	}
+        for (int i = 0; i < inv.getSizeInventory(); i++)
+        {
+            if (inv.getStackInSlot(i) != null && (inv.getStackInSlot(i).getItem() instanceof ItemCultistRobeArmor || inv.getStackInSlot(i).getItem() instanceof ItemCultistPlateArmor || inv.getStackInSlot(i).getItem() instanceof ItemCultistLeaderArmor))
+                armor = inv.getStackInSlot(i);
+            else if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getItem() instanceof ItemVoidsentBlood)
+                blood = inv.getStackInSlot(i);
+        }
+        if (armor != null && blood != null && (armor.getTagCompound() == null || (armor.getTagCompound() != null && !armor.getTagCompound().getBoolean("voidtouched"))))
+        {
+            copy = armor.copy();
+            if (copy.getTagCompound() == null) copy.setTagCompound(new NBTTagCompound());
+            if (copy.getTagCompound() != null) copy.getTagCompound().setBoolean("voidtouched", true);
+        }
+        return copy;
+    }
 
-	@Override
-	public int getRecipeSize ()
-	{
-		return 10;
-	}
+    @Override
+    public int getRecipeSize()
+    {
+        return 10;
+    }
 
-	@Override
-	public ItemStack getRecipeOutput ()
-	{
-		return null;
-	}
+    @Override
+    public ItemStack getRecipeOutput()
+    {
+        return null;
+    }
 }

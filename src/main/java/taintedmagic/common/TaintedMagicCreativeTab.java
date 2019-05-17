@@ -14,51 +14,51 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class TaintedMagicCreativeTab extends CreativeTabs
 {
-	public List list = new ArrayList();
+    public List list = new ArrayList();
 
-	public TaintedMagicCreativeTab ()
-	{
-		super(LibInfo.MODID);
-	}
+    public TaintedMagicCreativeTab()
+    {
+        super(LibInfo.MODID);
+    }
 
-	@Override
-	public void displayAllReleventItems (List l)
-	{
-		super.displayAllReleventItems(l);
-		ItemStack wand = new ItemStack(ConfigItems.itemWandCasting);
-		ItemWandCasting wandCasting = (ItemWandCasting) wand.getItem();
+    @Override
+    public void displayAllReleventItems(List l)
+    {
+        super.displayAllReleventItems(l);
+        ItemStack wand = new ItemStack(ConfigItems.itemWandCasting);
+        ItemWandCasting wandCasting = (ItemWandCasting) wand.getItem();
 
-		wandCasting.setCap(wand, ItemRegistry.WAND_CAP_SHADOWMETAL);
-		wandCasting.setRod(wand, ItemRegistry.STAFF_ROD_WARPWOOD);
-		wandCasting.storeAllVis(wand, TaintedMagicHelper.getPrimals(50000));
+        wandCasting.setCap(wand, ItemRegistry.WAND_CAP_SHADOWMETAL);
+        wandCasting.setRod(wand, ItemRegistry.STAFF_ROD_WARPWOOD);
+        wandCasting.storeAllVis(wand, TaintedMagicHelper.getPrimals(50000));
 
-		if (l != null) l.add(0, wand);
+        if (l != null) l.add(0, wand);
 
-		wand = new ItemStack(ConfigItems.itemWandCasting);
-		wandCasting = (ItemWandCasting) wand.getItem();
+        wand = new ItemStack(ConfigItems.itemWandCasting);
+        wandCasting = (ItemWandCasting) wand.getItem();
 
-		wandCasting.setCap(wand, ItemRegistry.WAND_CAP_SHADOWMETAL);
-		wandCasting.setRod(wand, ItemRegistry.WAND_ROD_WARPWOOD);
-		wandCasting.storeAllVis(wand, TaintedMagicHelper.getPrimals(25000));
+        wandCasting.setCap(wand, ItemRegistry.WAND_CAP_SHADOWMETAL);
+        wandCasting.setRod(wand, ItemRegistry.WAND_ROD_WARPWOOD);
+        wandCasting.storeAllVis(wand, TaintedMagicHelper.getPrimals(25000));
 
-		if (l != null) l.add(1, wand);
-	}
+        if (l != null) l.add(1, wand);
+    }
 
-	@Override
-	public ItemStack getIconItemStack ()
-	{
-		ItemStack wand = new ItemStack(ConfigItems.itemWandCasting);
-		ItemWandCasting wandCasting = (ItemWandCasting) wand.getItem();
+    @Override
+    public ItemStack getIconItemStack()
+    {
+        ItemStack wand = new ItemStack(ConfigItems.itemWandCasting);
+        ItemWandCasting wandCasting = (ItemWandCasting) wand.getItem();
 
-		wandCasting.setCap(wand, ItemRegistry.WAND_CAP_SHADOWMETAL);
-		wandCasting.setRod(wand, ItemRegistry.WAND_ROD_WARPWOOD);
+        wandCasting.setCap(wand, ItemRegistry.WAND_CAP_SHADOWMETAL);
+        wandCasting.setRod(wand, ItemRegistry.WAND_ROD_WARPWOOD);
 
-		return wand;
-	}
+        return wand;
+    }
 
-	@Override
-	public Item getTabIconItem ()
-	{
-		return null;
-	}
+    @Override
+    public Item getTabIconItem()
+    {
+        return null;
+    }
 }
