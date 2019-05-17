@@ -276,8 +276,6 @@ public class ItemKatana extends Item implements IWarpingGear, IRepairable, IRend
                     break;
             }
         }
-        s.stackTagCompound = new NBTTagCompound();
-        s.getTagCompound().setInteger("inscription", 1);
     }
 
     private boolean isFullyCharged(EntityPlayer p)
