@@ -11,6 +11,7 @@ public class ConfigHandler
     public static boolean useUpdateHandler = true;
     public static boolean researchTags = true;
     public static boolean useCustomResearchTabBackground = false;
+    public static float volcanic_inscription_projectile_damage_modifier;
 
     public static void init()
     {
@@ -24,6 +25,8 @@ public class ConfigHandler
                 "'[TaintedMagic]' tag on the research");
         useCustomResearchTabBackground = config.getBoolean("use_custom_research_tab_background", "research", false,
                 "Setting this to true will enable the old custom tab background");
+        volcanic_inscription_projectile_damage_modifier = config.getFloat(
+                "volcanic_inscription_projectile_damage_modifier", "fortress_blade", 0.5F, 0.0F, 10.0F, "");
 
         config.save();
     }

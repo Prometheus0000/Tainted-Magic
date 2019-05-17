@@ -37,6 +37,7 @@ import taintedmagic.client.model.ModelKatana;
 import taintedmagic.client.model.ModelSaya;
 import taintedmagic.common.TaintedMagic;
 import taintedmagic.common.entities.EntityTaintBubble;
+import taintedmagic.common.handler.ConfigHandler;
 import taintedmagic.common.network.PacketHandler;
 import taintedmagic.common.network.PacketKatanaAttack;
 import thaumcraft.api.IRepairable;
@@ -221,54 +222,54 @@ public class ItemKatana extends Item implements IWarpingGear, IRepairable, IRend
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack s, World w, EntityPlayer p, int i)
+    public void onPlayerStoppedUsing(ItemStack item_stack, World world, EntityPlayer player, int i)
     {
-        super.onPlayerStoppedUsing(s, w, p, i);
+        super.onPlayerStoppedUsing(item_stack, world, player, i);
         Random r = new Random();
 
-        if (!hasAnyInscription(s) || !isFullyCharged(p) || p.isSneaking() || getInscription(s) == 2)
+        if (!hasAnyInscription(item_stack) || !isFullyCharged(player) || player.isSneaking() || getInscription(item_stack) == 2)
         {
-            boolean leech = (getInscription(s) == 2 && isFullyCharged(p));
+            boolean leech = (getInscription(item_stack) == 2 && isFullyCharged(player));
             boolean b = false;
 
-            if (w.isRemote)
+            if (world.isRemote)
             {
                 MovingObjectPosition mop = Minecraft.getMinecraft().objectMouseOver;
                 float mul = Math.min(1.0F + (float) this.ticksInUse / 40.0F, 2.0F);
 
                 if (mop.entityHit != null)
-                    PacketHandler.INSTANCE.sendToServer(new PacketKatanaAttack(mop.entityHit, p,
-                            this.getAttackDamage(s) * mul, leech));
-                p.swingItem();
+                    PacketHandler.INSTANCE.sendToServer(new PacketKatanaAttack(mop.entityHit, player,
+                            this.getAttackDamage(item_stack) * mul, leech));
+                player.swingItem();
             }
-            p.worldObj.playSoundAtEntity(p, "thaumcraft:swing", 0.5F + (float) Math.random(),
+            player.worldObj.playSoundAtEntity(player, "thaumcraft:swing", 0.5F + (float) Math.random(),
                     0.5F + (float) Math.random());
         }
-        else if (hasAnyInscription(s) && isFullyCharged(p) && !p.isSneaking())
+        else if (hasAnyInscription(item_stack) && isFullyCharged(player) && !player.isSneaking())
         {
-            switch (getInscription(s))
+            switch (getInscription(item_stack))
             {
                 case 0:
                 {
-                    EntityExplosiveOrb proj = new EntityExplosiveOrb(w, p);
-                    proj.strength = getAttackDamage(s) * 0.5F;
+                    EntityExplosiveOrb proj = new EntityExplosiveOrb(world, player);
+                    proj.strength = getAttackDamage(item_stack) * ConfigHandler.volcanic_inscription_projectile_damage_modifier;
                     proj.posX += proj.motionX;
                     proj.posY += proj.motionY;
                     proj.posZ += proj.motionZ;
-                    if (!w.isRemote) w.spawnEntityInWorld(proj);
-                    p.swingItem();
+                    if (!world.isRemote) world.spawnEntityInWorld(proj);
+                    player.swingItem();
                     break;
                 }
                 case 1:
                 {
                     for (int a = 0; a < 75; a++)
                     {
-                        EntityTaintBubble proj = new EntityTaintBubble(w, p, 5.0F, getAttackDamage(s) * 2.0F, false);
+                        EntityTaintBubble proj = new EntityTaintBubble(world, player, 5.0F, getAttackDamage(item_stack) * 2.0F, false);
                         proj.posX += proj.motionX;
                         proj.posY += proj.motionY;
                         proj.posZ += proj.motionZ;
-                        if (!w.isRemote) w.spawnEntityInWorld(proj);
-                        p.swingItem();
+                        if (!world.isRemote) world.spawnEntityInWorld(proj);
+                        player.swingItem();
                     }
                     break;
                 }
