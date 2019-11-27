@@ -11,3 +11,7 @@
 /eclipse
 /bin
 /run
+Win_SetupWorkspace_Idea.bat
+TaintedMagic.iws
+TaintedMagic.ipr
+TaintedMagic.iml
